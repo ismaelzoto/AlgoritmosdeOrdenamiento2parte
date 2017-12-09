@@ -1,14 +1,68 @@
 
 public class Ordenamiento {
+	
+	int i,j,temporal,pasadas;
 
-	//Mostrar los datos del vector
-	public void mostrarArreglo(int [] arreglo){
-		int k=0;
-		for(k=0;k<arreglo.length; k++){
-			System.out.print("["+arreglo[k]+"]");
-		}
-		System.out.println();
+	public Ordenamiento(){
+		this.i=0;
+		this.j=0;
+		this.temporal=0;
 	}
+	//Metodo burbuja version 1
+		public void burbuja1(int [] arreglo){
+			pasadas=0;
+			for(i=0; i<arreglo.length; i++){
+				for(j=i+1; j<arreglo.length;j++){
+					if (arreglo[i]>arreglo[j]){
+						temporal=arreglo[i];
+						arreglo[i]=arreglo[j];
+						arreglo[j]=temporal;
+					}
+					pasadas++;
+				}
+			}
+			System.out.println("Termino en "+pasadas+" pasadas");
+		}
+		//Metodo burbuja version 2
+		public void burbuja2(int[] arreglo){
+			pasadas=0;
+			for(i=1; i<arreglo.length; i++){
+				for(j=0; j<arreglo.length-1;j++){
+					if (arreglo[j]>arreglo[j+1]){
+						temporal=arreglo[j];
+						arreglo[j]=arreglo[j+1];
+						arreglo[j+1]=temporal;
+					}
+					pasadas++;
+				}
+			}
+			System.out.println("Termino en "+pasadas+" pasadas");
+
+		}
+		//metodo radix
+		public void radix(int[] arreglo){
+			int x ,i,j;
+			for(x=Integer.SIZE-1; x>=0; x--){
+				int auxiliar[]=new int[arreglo.length];
+				j=0;
+				for(i=0;i<arreglo.length; i++){
+					boolean mover=arreglo[i]<<x>=0;
+					if (x==0 ? !mover:mover){
+						auxiliar[j]=arreglo[i];
+						j++;
+					}else {
+						arreglo[i-j]=arreglo[i];
+					}
+				}
+				for(i=j;i<auxiliar.length;i++){
+					auxiliar[i]=arreglo[i-j];
+				}
+				arreglo=auxiliar;
+			}
+			System.out.println("el arreglo ordenado con radiz es: ");
+			mostrarArreglos(arreglo);
+		}	
+	//Metodo Quick
 	public void quick(int[] arreglo,int primero,int ultimo){
 		int i,j,pivote,aux;
 		i=primero;
@@ -38,10 +92,9 @@ public class Ordenamiento {
 			quick(arreglo,i,ultimo);
 		}
 
-		mostrarArreglo(arreglo);
+		mostrarArreglos(arreglo);
 	}
-
-	//metodo para incercion
+	//Metodo para incercion
 	public void insrcion(int[]arreglo,int n){
 		int i,j,auxiliar;
 		for(i=1;i<n;i++){
@@ -57,9 +110,8 @@ public class Ordenamiento {
 		System.out.println("\n Arreglo ordenado por insercion");
 		mostrarArreglos(arreglo);
 	}
-	// metodo shell
-
-	public void shell(int[] arreglo){
+	//Metodo shell
+    public void shell(int[] arreglo){
 		int salto,i,j,k,auxiliar;
 		salto=arreglo.length/2;
 		while(salto>0){
@@ -84,11 +136,11 @@ public class Ordenamiento {
 		System.out.println("\n Arreglo ordenado con shell");
 		mostrarArreglos(arreglo);
 	}
-	//metodo intercalacion
+	//Metodo intercalacion
 	public void intercalacion(int[]arregloA,int[]arregloB){
 		int i,j,k;
 		int arregloC[]=new int[arregloA.length+arregloB.length];
-		//repetir mientras los arreglos A y B tengan elemntos que conparar
+		//repetir mientras los arreglos A y B tengan elementos que conparar
 		for(i=j=k=0;i<arregloA.length && j<arregloB.length;k++){
 			if(arregloA[i]<arregloB[j]){
 				arregloC[k]=arregloA[i];
@@ -116,8 +168,8 @@ public class Ordenamiento {
 	}
 
 
-	//metodo mezcladirecta
-	public int [] mezcladirecta (int [] arreglo){
+	//Metodo mezcla directa
+	public int [] mezcladirecta(int [] arreglo){
 		int i,j,k;
 		if(arreglo.length> 1){
 			int nElementosIzq=arreglo.length/2;
@@ -168,8 +220,7 @@ public class Ordenamiento {
 		return arreglo;
 	}
 	//metodo mezcla natural
-
-	public void mezclanatural(int arreglo[]){
+    public void mezclanatural(int arreglo[]){
 		int izquierda=0,izq=0,derecha=arreglo.length-1,der=derecha;
 		boolean ordenado=false;
 		do{
@@ -247,7 +298,40 @@ public class Ordenamiento {
 		}//Fin del if
 
 	}
-
+	//Metoddo de busqueda secuencial
+	public int busquedasecuencial(int arreglo [],int elemento){
+		int i;
+		boolean encontrado=false;
+		
+		for(i=0; i<arreglo.length && encontrado == false; i++){
+			if (elemento==arreglo[i]){
+				encontrado=true;
+				return i;
+			}
+		}
+		return -1;
+	}
+	//metodo de busqueda Binaria
+	public int busquedaBinaria(int arreglo[],int elemento){
+		int centro,primero,ultimo,valorcentro;
+		primero=0;
+		ultimo=arreglo.length-1;
+		while(primero<=ultimo){
+			centro=(primero+ultimo)/2;
+			valorcentro=arreglo[centro];
+			System.out.println("Comparando a "+elemento+" con "+ arreglo[centro]);
+			if(elemento==valorcentro){
+				return centro;
+			}else if(elemento<valorcentro){
+				ultimo=centro-1;//desplazarnos hacia la Izq
+				
+			}else{
+				primero=centro+1;//desplazarnos hacia la Der
+			}
+		}
+		return -1;
+		
+	}
 	//Mostrar los datos del vector
 	public void mostrarArreglos(int []arreglo){
 		int k;

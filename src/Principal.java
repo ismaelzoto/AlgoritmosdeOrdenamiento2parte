@@ -6,7 +6,7 @@ public class Principal {
         Ordenamiento ordenar = new Ordenamiento();
         
         int vector1[] = {5, 6, 3, 44, 22, 1};
-        int vector2[] = {55, 4, 43, 44, 2, 10};
+        int vector2[] = {55,4,43,44,2,10,4567,638,3,0,-5,-9};
         int vector3[] = {5, 2, 1, 8, 3, 9, 7};
         /*System.out.println("Arreglo original");
         ordenar.mostrarArreglo(vector1);
@@ -58,11 +58,28 @@ public class Principal {
          ordenar.mostrarArreglos(vector2);
          */
          
-        System.out.println (" \n  Arreglo  vector 2 original");
+        //System.out.println (" \n  Arreglo  vector 2 original");
+        //ordenar.mostrarArreglos(vector2);
+         //System.out.println (" \n  Arreglo  vector 2 ordenado por mezcla natural");
+         //ordenar.mezclanatural(vector2);
+         //ordenar.mostrarArreglos(vector2);   
         ordenar.mostrarArreglos(vector2);
-         System.out.println (" \n  Arreglo  vector 2 ordenado por mezcla natural");
-         ordenar.mezclanatural(vector2);
-         ordenar.mostrarArreglos(vector2);   
-     }
-     
+        ordenar.burbuja1(vector2);
+        ordenar.mostrarArreglos(vector2);
+        int indice=ordenar.busquedaBinaria(vector2, 10);
+        if(indice!=-1){
+        	System.out.println("Elemento 10 encontrado en el indice "+indice);
+        }else{
+        	System.out.println("Elemento 10 NO encontrado");
+        }
+        Funcionhash hash=new Funcionhash(8);
+        String[] elementos={ "20","33","21","10","12","14","56","100"};
+        hash.funcionhash(elementos, hash.arreglo);
+        hash.mostar();
+        String buscado=hash.buscarclave("33");
+        if( buscado==null){
+             System.out.println("   el elemento 33 no se encuentra en la tabla" ); }
+        
+	}
+	 
  }
